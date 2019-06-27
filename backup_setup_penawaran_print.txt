@@ -1,0 +1,234 @@
+
+  public function print_all_to_excel(){
+    $filename = "Cetak Penawaran ".tanggalan(date('Y-m-d'))."xls";
+    header("Content-Type: application/force-download");
+    header("Content-Type: application/octet-stream");
+    header("Content-Type: application/download");
+    header("Content-Disposition: attachment; filename=\"Cetak Penawaran ".tanggalan(date("Y-m-d")).".xls\"");
+    header("Content-Transfer-Encoding: binary");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+
+    $id_penawaran = $this->uri->segment(3);
+
+    //query untuk narik segment praops
+    $sql_praops_list = $this->db->query("select
+      a.*,b.nama_penawaran,c.nama_pricelist,d.nama_pelayanan from t_harga_penawaran a
+      left join m_penawaran b on b.id = a.id_penawaran
+      left join m_pricelist c on c.id = a.id_pricelist
+      left join m_jenis_pelayanan d on d.id = c.id_pelayanan WHERE id_penawaran = '".$id_penawaran."' and c.id_pelayanan = '1' ");
+
+    //query untuk tarik semua tahap di praops
+    $get_all_tahap_praops = $this->db->query("select a.*,b.nama_pricelist,c.nama_pelayanan from t_harga_penawaran a
+      LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+      LEFT JOIN m_jenis_pelayanan c on c.id = b.id_pelayanan
+      where a.id_penawaran = '".$id_penawaran."' and b.id_pelayanan = '1' group by a.tahap")->result();
+
+    //query untuk tarik semua list berdasarkan penawaran,tahap serta layanan praops
+    $sqllist_praops = $this->db->query("select
+        a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' 
+        AND a.tahap = '".$value->tahap."' 
+        AND b.id_pelayanan = '1'
+        ORDER by b.id ASC")->result();
+
+    
+
+    //get query yantrans
+
+    $sql_yantrans_list = $this->db->query("select
+        a.*,b.nama_penawaran,c.nama_pricelist,d.nama_pelayanan from t_harga_penawaran a
+        left join m_penawaran b on b.id = a.id_penawaran
+        left join m_pricelist c on c.id = a.id_pricelist
+        left join m_jenis_pelayanan d on d.id = c.id_pelayanan WHERE id_penawaran = '".$id_penawaran."' and c.id_pelayanan = '5' ");
+
+    //query untuk tarik semua tahap di yantrans
+    $get_all_tahap_yantrans = $this->db->query("select a.*,b.nama_pricelist,c.nama_pelayanan from t_harga_penawaran a
+      LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+      LEFT JOIN m_jenis_pelayanan c on c.id = b.id_pelayanan
+      where a.id_penawaran = '".$id_penawaran."' and b.id_pelayanan = '5' group by a.tahap")->result();
+
+    //query untuk tarik semua list berdasarkan penawaran,tahap serta layanan yantrans
+    $sqllist_yantrans = $this->db->query("select 
+        a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' 
+        AND a.tahap = '".$value->tahap."' 
+        AND b.id_pelayanan = '5'
+        ORDER by b.id ASC")->result();
+
+
+    //get query yanlalin
+
+     $sql_yanlalin_list = $this->db->query("select
+        a.*,b.nama_penawaran,c.nama_pricelist,d.nama_pelayanan from t_harga_penawaran a
+        left join m_penawaran b on b.id = a.id_penawaran
+        left join m_pricelist c on c.id = a.id_pricelist
+        left join m_jenis_pelayanan d on d.id = c.id_pelayanan WHERE id_penawaran = '".$id_penawaran."' and c.id_pelayanan = '6' ");
+
+    //query untuk tarik semua tahap di yanlalin
+    $get_all_tahap_yanlalin = $this->db->query("select a.*,b.nama_pricelist,c.nama_pelayanan from t_harga_penawaran a
+      LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+      LEFT JOIN m_jenis_pelayanan c on c.id = b.id_pelayanan
+      where a.id_penawaran = '".$id_penawaran."' and b.id_pelayanan = '6' group by a.tahap")->result();
+
+    //query untuk tarik semua list berdasarkan penawaran,tahap serta layanan yanlalin
+    $sqllist_yanlalin = $this->db->query("select 
+        a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' 
+        AND a.tahap = '".$value->tahap."' 
+        AND b.id_pelayanan = '6'
+        ORDER by b.id ASC")->result();
+
+
+    //get query yanpml
+
+     $sql_yanpml_list = $this->db->query("select
+        a.*,b.nama_penawaran,c.nama_pricelist,d.nama_pelayanan from t_harga_penawaran a
+        left join m_penawaran b on b.id = a.id_penawaran
+        left join m_pricelist c on c.id = a.id_pricelist
+        left join m_jenis_pelayanan d on d.id = c.id_pelayanan WHERE id_penawaran = '".$id_penawaran."' and c.id_pelayanan = '7' ");
+
+    //query untuk tarik semua tahap di yanpml
+    $get_all_tahap_yanpml = $this->db->query("select a.*,b.nama_pricelist,c.nama_pelayanan from t_harga_penawaran a
+      LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+      LEFT JOIN m_jenis_pelayanan c on c.id = b.id_pelayanan
+      where a.id_penawaran = '".$id_penawaran."' and b.id_pelayanan = '7' group by a.tahap")->result();
+
+    //query untuk tarik semua list berdasarkan penawaran,tahap serta layanan yanpml
+    $sqllist_yanpml = $this->db->query("select 
+        a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' 
+        AND a.tahap = '".$value->tahap."' 
+        AND b.id_pelayanan = '7'
+        ORDER by b.id ASC")->result();
+
+
+    //get query umum
+
+      $sql_umum_list = $this->db->query("select
+        a.*,b.nama_penawaran,c.nama_pricelist,d.nama_pelayanan from t_harga_penawaran a
+        left join m_penawaran b on b.id = a.id_penawaran
+        left join m_pricelist c on c.id = a.id_pricelist
+        left join m_jenis_pelayanan d on d.id = c.id_pelayanan WHERE id_penawaran = '".$id_penawaran."' and c.id_pelayanan = '8' ");
+
+    //query untuk tarik semua tahap di umum
+    $get_all_tahap_umum = $this->db->query("select a.*,b.nama_pricelist,c.nama_pelayanan from t_harga_penawaran a
+      LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+      LEFT JOIN m_jenis_pelayanan c on c.id = b.id_pelayanan
+      where a.id_penawaran = '".$id_penawaran."' and b.id_pelayanan = '8' group by a.tahap")->result();
+
+    //query untuk tarik semua list berdasarkan penawaran,tahap serta layanan umum
+    $sqllist_umum = $this->db->query("select 
+        a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' 
+        AND a.tahap = '".$value->tahap."' 
+        AND b.id_pelayanan = '8'
+        ORDER by b.id ASC")->result();
+
+
+
+    
+   
+    $get_all_tahap = $this->db->query("select * from t_harga_penawaran where id_penawaran = '".$id_penawaran."' group by tahap")->result();
+  
+    echo "<table border='1' cellpadding='3' cellspacing='0'>";
+
+    $tahap = "<tr>";
+    $header = "<tr style='font-weight:bold; background-color:cyan;' >";
+    $body = array();
+    foreach ($get_all_tahap as $key => $value) {
+      $tahap .= "
+              <td colspan='8' style='font-weight:bold; background-color:yellow;'> TAHAP ".$value->tahap." </td> 
+            ";
+
+      $header .= "
+              <td>No</td>
+              <td>Komponen Biaya</td>
+              <td>Kebutuhan</td>
+              <td>Satuan</td>
+              <td>Harga Satuan</td>
+              <td>Jumlah</td>
+              <td>Volume</td>
+              <td>Jumlah</td>
+      ";
+
+      $sqllist = $this->db->query("select a.*,b.nama_pricelist,c.nama_penawaran,d.nama_satuan,
+        (a.kebutuhan * a.value_harsat) as jumlah_uraian,
+        ((a.kebutuhan * a.value_harsat) * a.volume) as 
+        jumlah_tahunan,e.nama_pelayanan,f.nama_komp_biaya from t_harga_penawaran a
+        LEFT JOIN m_pricelist b on b.id = a.id_pricelist
+        LEFT JOIN m_penawaran c on c.id = a.id_penawaran
+        LEFT JOIN m_satuan d on d.id = b.id_satuan 
+        LEFT JOIN m_jenis_pelayanan e on e.id = b.id_pelayanan
+        LEFT JOIN m_komp_biaya f on f.id = b.id_komp_biaya
+        WHERE a.id_penawaran = '".$id_penawaran."' AND a.tahap = '".$value->tahap."' 
+        ORDER by b.id ASC")->result();
+ 
+      $no=1;
+      $idx = 0;
+      foreach ($sqllist as $keys => $values) {
+          $content = "";
+          if(isset($body[$idx])) {
+            $content = $body[$idx];
+          }
+          $body[$idx] = $content."
+              <td>".$no."</td>
+              <td>".$values->nama_pricelist."</td>
+              <td>".$values->kebutuhan."</td>
+              <td>".$values->nama_satuan."</td>
+              <td>".$values->value_harsat."</td>
+              <td>".$values->jumlah_uraian."</td>
+              <td>".$values->volume."</td>
+              <td>".$values->jumlah_tahunan."</td>
+            ";
+          $no++;$idx++;
+      }
+    }
+
+    $result = $tahap."</tr>".$header."</tr>";
+    foreach ($body as $key => $value) {
+      $result .= "<tr>".$value."</tr>";
+    }
+    $result .= "</table>";
+    echo  $result;
+  }
