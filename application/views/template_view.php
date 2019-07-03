@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title><?php echo $judul; ?></title>
-    <!-- Favicon-->
-    <link rel="icon" href="<?php echo base_url(); ?>assets/images/favicon.png" type="image/x-icon">
-
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -155,60 +153,47 @@
                             <span>Home  </span>
                         </a>
                     </li> 
-                    <li class="header">Master</li> 
+ 
+                    
+                
                     <li>
                         <a href="javascript:void(0);" class="menu-toggle">
                             <i class="material-icons">dns</i>
-                            <span>Master</span>
+                            <span>Employee</span>
                         </a>
                         <ul class="ml-menu">
+                    
                     <li>
                         <a href="<?php echo base_url('jenis_layanan'); ?>">
                            <i class="material-icons">dns</i>
-                            <span>Jenis Pelayanan</span>
+                            <span>Karyawan</span>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="<?php echo base_url('jenis_layanan'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>Jabatan</span>
                         </a>
                     </li> 
                     <li>
                         <a href="<?php echo base_url('komp_biaya'); ?>">
                            <i class="material-icons">dns</i>
-                            <span>Komponen Biaya</span>
+                            <span>Status</span>
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="<?php echo base_url('komp_biaya'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>Payroll</span>
                         </a>
                     </li> 
                     <li>
                         <a href="<?php echo base_url('satuan'); ?>">
                            <i class="material-icons">dns</i>
-                            <span>Satuan</span>
+                            <span>User Account</span>
                         </a>
                     </li> 
-                      
-                    <li>
-                        <a href="<?php echo base_url('penawaran'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Penawaran</span>
-                        </a>
-                    </li>
-                    
-                   
-                    <li>
-                        <a href="<?php echo base_url('country'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Country</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('pricelist'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Pricelist</span>
-                        </a>
-                    </li>
-                   
-                    <li>
-                        <a href="<?php echo base_url('user'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>User</span>
-                        </a>
-                    </li>
-                    
+                       
                         </ul>
                     </li>
 
@@ -307,7 +292,7 @@
             <!-- Footer -->
             <div class="legal">
                 <div class="copyright">
-                    &copy; 2018 <a href="javascript:void(0);"> PT.Jasamarga (Persero) </a>
+                    &copy; 2019 <a href="javascript:void(0);"> PT.Anonymous </a>
                 </div>
             </div>
             <!-- #Footer -->
