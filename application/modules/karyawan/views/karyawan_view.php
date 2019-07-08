@@ -15,6 +15,7 @@
                             <br>
                             <a href="javascript:void(0);" id="addmodal" class="btn btn-primary waves-effect">  <i class="material-icons">add_circle</i>  Tambah Data </a>
  
+ 
                         </div>
                         <div class="body">
                                 
@@ -22,13 +23,11 @@
 							   <table class="table table-bordered table-striped table-hover js-basic-example" id="example" >
   
 									<thead>
-										<tr>
-											<th style="width:5%;">No</th>
-                                            
-											<th style="width:5%;">NPP</th>
-                                            <th style="width:5%;">Nama Karyawan</th> 
-                                            <th style="width:5%;">Lokasi</th>							 
-											<th style="width:5%;">Opsi</th> 
+										<tr> 
+											<th style="width:5%;">NIP</th>
+                                            <th style="width:5%;">Nama</th>
+                                            <th style="width:5%;">Jabatan</th>  
+                                            <th style="width:5%;">Opsi</th> 
 										</tr>
 									</thead> 
 								</table> 
@@ -55,41 +54,56 @@
                               <form method="post" id="user_form" enctype="multipart/form-data">   
                                  
                                     <input type="hidden" name="id" id="id"> 
-                                    <!-- hidden -->
-									<div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" name="nama_lokasi" id="nama_lokasi" class="form-control" required readonly="readonly" >
-                                                    <input type="hidden" name="id_lokasi" id="id_lokasi" required>
-                                                    
-                                                </div>
-                                                <span class="input-group-addon">
-                                                    <button type="button" onclick="CariLokasi();" class="btn btn-primary"> Pilih Lokasi... </button>
-                                                </span>
-                                    </div>
+                                   
 
 									<div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="npp" id="npp" class="form-control" placeholder="NPP" />
+                                            <input type="text" name="nip" id="nip" class="form-control" placeholder="NIP" />
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" placeholder="Nama karyawan" />
+                                            <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama" />
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="form-line">
-                                            Upload Foto 
-                                            <input type="file" name="user_image" id="user_image" class="form-control" onchange="PreviewGambar(this);" placeholder="Foto" />  
+                                            <input type="text" name="alamat" id="alamat" class="form-control" placeholder="Alamat" />
                                         </div>
-                                           <input type="hidden" name="foto" id="foto">
                                     </div>
-                                    <br>
-                                    <img onerror="this.onerror=null;this.src='<?php echo base_url('upload/image_prev.jpg'); ?>';" id="image1" src="<?php echo base_url('upload/image_prev.jpg');?>" style="height: 300px;" alt="..." class="img-rounded img-responsive">
-                                  <br>
-									 
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="telp" id="telp" class="form-control" placeholder="Telp" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="email" id="email" class="form-control" placeholder="Email" />
+                                        </div>
+                                    </div>
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_jabatan" id="nama_jabatan" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_jabatan" id="id_jabatan" readonly="readonly" >
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariJabatan();" class="btn btn-primary"> Pilih Jabatan... </button>
+                                                </span>
+                                    </div>
+
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_status" id="nama_status" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_status" id="id_status" readonly="readonly">
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariStatus();" class="btn btn-primary"> Pilih Status... </button>
+                                                </span>
+                                    </div>                              
+                                    
+ 
 
 								   <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
@@ -102,12 +116,12 @@
     </div>
 
 
-    <!-- modal cari ruas -->
-    <div class="modal fade" id="CariLokasiModal" tabindex="-1" role="dialog">
+    <!-- modal cari jabatan -->
+    <div class="modal fade" id="CariJabatanModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" >Cari Lokasi</h4>
+                            <h4 class="modal-title" >Cari Jabatan</h4>
                         </div>
                         <div class="modal-body">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
@@ -115,14 +129,14 @@
                                 <br>
                                 <hr>
 
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_lokasi" >
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_jabatan" >
   
                                     <thead>
                                         <tr>  
-                                            <th style="width:98%;">Lokasi </th> 
+                                            <th style="width:98%;">Jabatan </th> 
                                          </tr>
                                     </thead> 
-                                    <tbody id="daftar_lokasix">
+                                    <tbody id="daftar_jabatanx">
 
                                 </tbody>
                                 </table> 
@@ -132,44 +146,161 @@
                 </div>
     </div>
 
-			
- 
-   <script type="text/javascript">
-	function PreviewGambar(input) {
-        if (input.files && input.files[0]){
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('#image1').attr('src', e.target.result);
-                $("#foto").val($('#user_image').val().replace(/C:\\fakepath\\/i, ''));
-            };
-            reader.readAsDataURL(input.files[0]);
-            
-        }
-     }
-     
 
-    $('#daftar_lokasi').DataTable( {
-            "ajax": "<?php echo base_url(); ?>karyawan/fetch_lokasi"           
+    
+    <!-- modal cari status -->
+    <div class="modal fade" id="CariStatusModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Cari Status</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
+
+                                <br>
+                                <hr>
+
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_status" >
+  
+                                    <thead>
+                                        <tr>  
+                                            <th style="width:98%;">Status </th> 
+                                         </tr>
+                                    </thead> 
+                                    <tbody id="daftar_statusx">
+
+                                </tbody>
+                                </table> 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
+
+     <!-- modal detail -->
+     <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Detail</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
+                                <br>
+                                <hr>
+                                <table class="table table-bordered table-hovered">
+                                <tr>
+                                    <td>NIP</td>
+                                    <td>:</td>
+                                    <td><div id="nipdtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <td><div id="namadtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Alamat</td>
+                                    <td>:</td>
+                                    <td><div id="alamatdtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Telp</td>
+                                    <td>:</td>
+                                    <td><div id="telpdtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td><div id="emaildtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Jabatan</td>
+                                    <td>:</td>
+                                    <td><div id="jabatandtl"> </div></td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td><div id="statusdtl"> </div></td>
+                                </tr>
+                                </table>
+                                 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
+
+ 
+ 
+   <script type="text/javascript"> 
+
+     
+    $('#daftar_jabatan').DataTable( {
+            "ajax": "<?php echo base_url(); ?>jabatan/fetch_jabatan"           
     });
 
      
-     
-    function CariLokasi(){
-        $("#CariLokasiModal").modal({backdrop: 'static', keyboard: false,show:true});
+    $('#daftar_status').DataTable( {
+            "ajax": "<?php echo base_url(); ?>status/fetch_status"           
+    });
+    function CariJabatan(){
+        $("#CariJabatanModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+
+    function Detail(id){
+        $("#DetailModal").modal({backdrop: 'static', keyboard: false,show:true});
+ 
+		$.ajax({
+			 url:"<?php echo base_url(); ?>karyawan/get_data_edit/"+id,
+			 type:"GET",
+			 dataType:"JSON", 
+			 success:function(result){ 
+                  
+				 //$("#DetailModal").modal('show'); 
+				 $("#nipdtl").html(result.nip);
+                 $("#namadtl").html(result.nama);
+                 $("#alamatdtl").html(result.alamat);
+                 $("#telpdtl").html(result.telp);
+                 $("#emaildtl").html(result.email);  
+                 $("#jabatandtl").html(result.nama_jabatan); 
+                 $("#statusdtl").html(result.nama_status); 
+                  
+			 }
+		 });
     } 
    
         
-        var daftar_lokasi = $('#daftar_lokasi').DataTable();
+        var daftar_jabatan = $('#daftar_jabatan').DataTable();
      
-        $('#daftar_lokasi tbody').on('click', 'tr', function () {
+        $('#daftar_jabatan tbody').on('click', 'tr', function () {
             
-            var content = daftar_lokasi.row(this).data()
+            var content = daftar_jabatan.row(this).data()
             console.log(content);
-            $("#nama_lokasi").val(content[0]);
-            $("#id_lokasi").val(content[1]);
-            $("#CariLokasiModal").modal('hide');
+            $("#nama_jabatan").val(content[0]);
+            $("#id_jabatan").val(content[3]);
+            $("#CariJabatanModal").modal('hide');
         } );
 
+    function CariStatus(){
+        $("#CariStatusModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+   
+        
+        var daftar_status = $('#daftar_status').DataTable();
+     
+        $('#daftar_status tbody').on('click', 'tr', function () {
+            
+            var content = daftar_status.row(this).data()
+            console.log(content);
+            $("#nama_status").val(content[0]);
+            $("#id_status").val(content[3]);
+            $("#CariStatusModal").modal('hide');
+        } );
+
+ 
        
  
        
@@ -185,11 +316,16 @@
                   
 				 $("#defaultModal").modal('show'); 
 				 $("#id").val(result.id);
-                 $("#npp").val(result.npp);
-                 $("#id_lokasi").val(result.id_lokasi);                 
-                 $("#nama_karyawan").val(result.nama_karyawan);
-                 $("#nama_lokasi").val(result.nama_lokasi);
-                 $('#image1').attr('src',"upload/"+result.foto);
+                 $("#nama").val(result.nama);
+                 $("#nip").val(result.nip);
+                 $("#telp").val(result.telp);
+                 $("#email").val(result.email); 
+                 $("#alamat").val(result.alamat);
+                 $("#id_jabatan").val(result.id_jabatan);
+                 $("#nama_jabatan").val(result.nama_jabatan);
+                 $("#id_status").val(result.id_status);
+                 $("#nama_status").val(result.nama_status);
+                
               
                   
 			 }
@@ -238,36 +374,33 @@
 	function Simpan_Data(){
 		//setting semua data dalam form dijadikan 1 variabel 
 		 var formData = new FormData($('#user_form')[0]); 
-
-           
-         var nama_karyawan = $("#nama_karyawan").val();
-         
-           
-
-            //transaksi dibelakang layar
-            $.ajax({
-             url:"<?php echo base_url(); ?>karyawan/simpan_data",
-             type:"POST",
-             data:formData,
-             contentType:false,  
-             processData:false,   
-             success:function(result){ 
-                
-                 $("#defaultModal").modal('hide');
-                 $('#example').DataTable().ajax.reload(); 
-                 $('#user_form')[0].reset();
-                 $("#image1").attr("src","<?php echo base_url(); ?>/upload/image_prev.jpg");
-                 $.notify("Data berhasil disimpan!", {
-                    animate: {
-                        enter: 'animated fadeInRight',
-                        exit: 'animated fadeOutRight'
-                 } 
-                 },{
-                    type: 'success'
-                });
-             }
-            }); 
-
+ 
+                 //transaksi dibelakang layar
+                 $.ajax({
+                 url:"<?php echo base_url(); ?>karyawan/simpan_data",
+                 type:"POST",
+                 data:formData,
+                 contentType:false,  
+                 processData:false,   
+                 success:function(result){ 
+                    
+                     $("#defaultModal").modal('hide');
+                     $('#example').DataTable().ajax.reload(); 
+                     $('#user_form')[0].reset();
+                     Bersihkan_Form();
+                     
+                     $.notify("Data berhasil disimpan!", {
+                        animate: {
+                            enter: 'animated fadeInRight',
+                            exit: 'animated fadeOutRight'
+                     } 
+                     },{
+                        type: 'success'
+                    });
+                 }
+                }); 
+ 
+ 
          
 
 	}
@@ -280,43 +413,36 @@
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
 		});
-		 
-		var groupColumn = 3;
-        var table = $('#example').DataTable({
-            "ajax": "<?php echo base_url(); ?>karyawan/fetch_karyawan",
-            "columnDefs": [
-                { "visible": false, "targets": groupColumn }
-            ],
-            "order": [[ 0, 'asc' ]],
-            "displayLength": 10,
-            "drawCallback": function ( settings ) {
-                var api = this.api();
-                var rows = api.rows( {page:'current'} ).nodes();
-                var last=null;
-     
-                api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
-                    if ( last !== group ) {
-                        $(rows).eq( i ).before(
-                            '<tr class="group"><td colspan="5"><b>'+group+'</b></td></tr>'
-                        );
-     
-                        last = group;
-                    }
-                } );
-            }
-        } );
-     
-        // Order by the grouping
-        $('#example tbody').on( 'click', 'tr.group', function () {
-            var currentOrder = table.order()[0];
-            if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
-                table.order( [ groupColumn, 'asc' ] ).draw();
-            }
-            else {
-                table.order( [ groupColumn, 'asc' ] ).draw();
-            }
-        } );
+
+        var dateObj = new Date();
+        var month = dateObj.getUTCMonth() + 1; //months from 1-12
+        var day = dateObj.getUTCDate();
+        var year = dateObj.getUTCFullYear();
  
+		 
+		$('#example').append('<caption style="caption-side: top">   </caption>');
+		$('#example').DataTable({
+             
+			"ajax": "<?php echo base_url(); ?>karyawan/fetch_karyawan",
+                'filterDropDown': {                                       
+                        columns: [
+                            { 
+                                idx: 1
+                            },
+                            { 
+                                idx: 2
+                            },
+                            { 
+                                idx: 3
+                            } 
+
+                        ],
+                        bootstrap: true
+                    } 
+		});
+
+
+	  
 		 
 	  });
   

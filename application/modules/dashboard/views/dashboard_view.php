@@ -10,24 +10,13 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                              Selamat Datang di Sistem Aplikasi BUJT  
+                              Selamat Datang di <?php echo $judul; ?> 
                             </h2>
                             <br>
                             
                         <div class="body">
                            
-            	<div class="row clearfix">
-                <!-- Line Chart -->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                   		 <div class="card">
-                        <div class="header">
-                            
-                        </div>
-                           
-                     
-                        </div>
-                </div>
-                
+             
                 
             
                 

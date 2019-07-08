@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends Parent_Controller {
  
   var $nama_tabel = 'm_user';
-  var $daftar_field = array('id','username','password','user_insert','date_insert','user_update','date_update');
+  var $daftar_field = array('id','username','password','id_karyawan');
   var $primary_key = 'id';
   
  	public function __construct(){

@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                               Manajemen User
+                                Jabatan
                             </h2>
                             <br>
                             <a href="javascript:void(0);" id="addmodal" class="btn btn-primary waves-effect">  <i class="material-icons">add_circle</i>  Tambah Data </a>
@@ -24,9 +24,10 @@
                                     <thead>
                                         <tr>
                                            
-                                            <th style="width:5%;">Username</th>  
-                                            <th style="width:5%;">Nama Pegawai</th>  
-                                            <th style="width:10%;">Opsi</th> 
+                                            <th style="width:5%;">Jabatan</th>
+                                            <th style="width:5%;">Gapok</th>   
+                                             
+                                            <th style="width:5%;">Opsi</th> 
                                         </tr>
                                     </thead> 
                                 </table> 
@@ -52,29 +53,20 @@
                         <div class="modal-body">
                               <form method="post" id="user_form" enctype="multipart/form-data">   
                                  
-                                    <input type="hidden" name="id" id="id"> 
+                                    <input type="hidden" name="id" id="id">    
+
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="username" id="username" class="form-control" placeholder="Username" />
+                                            <input type="text" name="nama_jabatan" id="nama_jabatan" class="form-control" placeholder="Jabatan" />
                                         </div>
                                     </div>
-                                    <div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_karyawan" id="id_karyawan" readonly="readonly">
-                                                    
-                                                </div>
-                                                <span class="input-group-addon">
-                                                    <button type="button" onclick="CariKaryawan();" class="btn btn-primary"> Pilih Karyawan... </button>
-                                                </span>
-                                    </div>           
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <span class="label label-danger">* Kosongkan Apabila Tidak Mengganti Password </span>
-                                            <input type="password" name="password" id="password" class="form-control" placeholder="Password" /> 
+                                            <input type="text" name="gapok" id="gapok" class="form-control" placeholder="Gapok (Ex: 1000000)" />
                                         </div>
                                     </div>
-                                 
+                                  
+                                     
 
                                    <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
@@ -86,78 +78,58 @@
                 </div>
     </div>
 
-    
 
-    <!-- modal cari pegawai -->
-    <div class="modal fade" id="CariKaryawanModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" >Cari Jabatan</h4>
-                        </div>
-                        <div class="modal-body">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
-
-                                <br>
-                                <hr>
-
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_jabatan" >
   
-                                    <thead>
-                                        <tr>  
-                                            <th style="width:98%;">Jabatan </th> 
-                                         </tr>
-                                    </thead> 
-                                    <tbody id="daftar_jabatanx">
-
-                                </tbody>
-                                </table> 
-                       </div>
-                     
-                    </div>
-                </div>
-    </div>
-
- 
- 
+   
+<style type="text/css">
+    td.details-control {
+    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('https://raw.githubusercontent.com/DataTables/DataTables/1.10.7/examples/resources/details_close.png') no-repeat center center;
+}
+</style>
    <script type="text/javascript">
     
- 
+
+   
+   
+         
        
      function Ubah_Data(id){
         $("#defaultModalLabel").html("Form Ubah Data");
         $("#defaultModal").modal('show');
- 
+        $('#user_form')[0].reset();
         $.ajax({
-             url:"<?php echo base_url(); ?>user/get_data_edit/"+id,
+             url:"<?php echo base_url(); ?>jabatan/get_data_edit/"+id,
              type:"GET",
              dataType:"JSON", 
-             success:function(result){  
+             success:function(result){ 
+                  console.log(result);
                  $("#defaultModal").modal('show'); 
                  $("#id").val(result.id);
-                 $("#username").val(result.username); 
-                 $("#id_admin_pppu").val(result.id_admin_pppu);
-                 $("#nama_adminpppu").val(result.nama); 
+               
+                 $("#nama_jabatan").val(result.nama_jabatan);
+                 $("#gapok").val(result.gapok);
+                
+                  
              }
          });
      }
  
      function Bersihkan_Form(){
         $(':input').val(''); 
-     }
-
-     function CariAdminPPPU(){
-        $("#ModalCariAdminPPPU").modal({backdrop: 'static', keyboard: false,show:true});
-     }
-
      
+         
+     }
 
      function Hapus_Data(id){
         if(confirm('Anda yakin ingin menghapus data ini?'))
         {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url('user/hapus_data')?>/"+id,
+            url : "<?php echo base_url('jabatan/hapus_data')?>/"+id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -175,7 +147,7 @@
                     });
                  
             },
-            error: function (jqXHR, textStatus, errorThrown)
+            error: function (jqXHR, textjabatan, errorThrown)
             {
                 alert('Error deleting data');
             }
@@ -184,35 +156,29 @@
     }
     }
     
-   
-    $('.thumbnail').on('click',function(){
-        $('.modal-body').empty();
-        var title = $(this).parent('a').attr("title");
-        $('.modal-title').html(title);
-        $($(this).parents('div').html()).appendTo('.modal-body');
-        $('#Prev').modal({show:true});
-    });
+      
   
     function Simpan_Data(){
         //setting semua data dalam form dijadikan 1 variabel 
-         var formData = new FormData($('#user_form')[0]); 
+        var formData = new FormData($('#user_form')[0]); 
 
-          
-         //validasi form sebelum submit ke controller
-         var username = $("#username").val();
- 
-        
-          
-         if(username == ''){
-            alert("Username Belum anda masukkan!");
-            $("#username").parents('.form-line').addClass('focused error');
-            $("#username").focus();
-          
-         }else{
+           
+        var nama_jabatan = $("#nama_jabatan").val();
+        var gapok = $("#gapok").val();
+       
+        if(nama_jabatan == ''){
+            alert("Satuan Belum anda masukkan!");
+            $("#nama_jabatan").parents('.form-line').addClass('focused error');
+            $("#id_satuan").focus();
+        }else if(gapok == ''){
+            alert("gapok Belum anda masukkan!");
+            $("#gapok").parents('.form-line').addClass('focused error');
+            $("#gapok").focus();
+        }else{
 
             //transaksi dibelakang layar
             $.ajax({
-             url:"<?php echo base_url(); ?>user/simpan_data_user",
+             url:"<?php echo base_url(); ?>jabatan/simpan_data",
              type:"POST",
              data:formData,
              contentType:false,  
@@ -222,7 +188,7 @@
                  $("#defaultModal").modal('hide');
                  $('#example').DataTable().ajax.reload(); 
                  $('#user_form')[0].reset();
-                 
+                 Bersihkan_Form();
                  $.notify("Data berhasil disimpan!", {
                     animate: {
                         enter: 'animated fadeInRight',
@@ -234,19 +200,49 @@
              }
             }); 
 
-         }
+  
+        }
+           
+
+          
+         
 
     }
-     
+      
+ 
+var g_dataFull = [];
 
-     $('.datepicker').bootstrapMaterialDatePicker({
-        format: 'YYYY-MM-DD',
-        clearButton: true,
-        weekStart: 1,
-        time: false
-     });
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+    var html = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="100%">';
+      
+    var dataChild = [];
+    var hasChildren = false;
+    $.each(g_dataFull, function(){
+       if(this.id_parent_jabatan === d.id){
+          html += 
+            '<tr><td>' + $('<div>').text(this.nama_pelayanan).html() + '</td>' + 
+            '<td>' +  $('<div>').text(this.nama_komp_biaya).html() + '</td>' + 
+            '<td>' +  $('<div>').text(this.nama_jabatan).html() +'</td>' + 
+            '<td>' +  $('<div>').text(this.nama_satuan).html() + '</td>'+
+            '<td>' +  $('<div>').text(this.action).html() + '</td></tr>';
 
+         
+          hasChildren = true;
+       }
+    });
+  
+    if(!hasChildren){
+        html += '<tr><td>There are no items in this view.</td></tr>';
      
+    }
+  
+ 
+    html += '</table>';
+    return html;
+}
+ 
+
        $(document).ready(function() {
            
         $("#addmodal").on("click",function(){
@@ -254,14 +250,15 @@
             $("#method").val('Add');
             $("#defaultModalLabel").html("Form Tambah Data");
         });
-        
          
-        $('#example').DataTable( {
-            "ajax": "<?php echo base_url(); ?>user/fetch_user" 
+      
+        
+     $('#example').DataTable( {
+            "ajax": "<?php echo base_url(); ?>jabatan/fetch_jabatan" 
+               
         });
-
-       
-     
+ 
+      
          
       });
   
