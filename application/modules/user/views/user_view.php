@@ -61,7 +61,7 @@
                                     <div class="input-group">
                                                 <div class="form-line">
                                                     <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" readonly="readonly" >
-                                                    <input type="text" name="id_karyawan" id="id_karyawan" readonly="readonly">
+                                                    <input type="hidden" name="id_karyawan" id="id_karyawan" readonly="readonly">
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
@@ -88,7 +88,7 @@
 
     
 
-    <!-- modal cari pegawai -->
+    <!-- modal cari karyawan -->
     <div class="modal fade" id="CariKaryawanModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -101,14 +101,16 @@
                                 <br>
                                 <hr>
 
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_jabatan" >
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_karyawan" >
   
                                     <thead>
                                         <tr>  
-                                            <th style="width:98%;">Jabatan </th> 
+                                            <th style="width:98%;">NIP </th> 
+                                            <th style="width:98%;">Nama </th> 
                                          </tr>
+                                          
                                     </thead> 
-                                    <tbody id="daftar_jabatanx">
+                                    <tbody id="daftar_karyawan">
 
                                 </tbody>
                                 </table> 
@@ -122,7 +124,23 @@
  
    <script type="text/javascript">
     
- 
+    function CariKaryawan(){
+        $("#CariKaryawanModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+    $('#daftar_karyawan').DataTable( {
+            "ajax": "<?php echo base_url(); ?>karyawan/fetch_karyawan"           
+    });
+
+    var daftar_karyawan = $('#daftar_karyawan').DataTable();
+     
+     $('#daftar_karyawan tbody').on('click', 'tr', function () {
+         
+         var content = daftar_karyawan.row(this).data()
+         console.log(content);
+         $("#nama_karyawan").val(content[1]);
+         $("#id_karyawan").val(content[4]);
+         $("#CariKaryawanModal").modal('hide');
+     } );
        
      function Ubah_Data(id){
         $("#defaultModalLabel").html("Form Ubah Data");
@@ -136,8 +154,8 @@
                  $("#defaultModal").modal('show'); 
                  $("#id").val(result.id);
                  $("#username").val(result.username); 
-                 $("#id_admin_pppu").val(result.id_admin_pppu);
-                 $("#nama_adminpppu").val(result.nama); 
+                 $("#id_karyawan").val(result.id_karyawan);
+                 $("#nama_karyawan").val(result.nama); 
              }
          });
      }
@@ -200,7 +218,7 @@
           
          //validasi form sebelum submit ke controller
          var username = $("#username").val();
- 
+        
         
           
          if(username == ''){

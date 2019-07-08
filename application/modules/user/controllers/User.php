@@ -35,7 +35,8 @@ class User extends Parent_Controller {
 	 
 	public function get_data_edit(){
 		$id = $this->uri->segment(3); 
-		$get = $this->db->query("SELECT * from m_user WHERE id = '".$id."' ")->row();
+		$get = $this->db->query("select a.*,b.nama from m_user a
+		left join m_karyawan b on b.id = a.id_karyawan WHERE a.id = '".$id."' ")->row();
 		echo json_encode($get,TRUE);
 	}
 	
@@ -55,13 +56,13 @@ class User extends Parent_Controller {
 	}
  
 	public function simpan_data_user(){
-		$data_form = $this->m_user->array_from_post(array('id','username','password','user_insert','date_insert','user_update','date_update'));
+		$data_form = $this->m_user->array_from_post(array('id','username','password','id_karyawan'));
 		$id = $data_form['id'];	 
 	 
 		//apabila user id kosong maka input data baru
 		if($id == '' || empty($id)){ 
 				 
-				return $this->db->query("insert into m_user set username = '".$data_form['username']."', password = '".base64_encode($data_form['password'])."', user_insert = '".$this->session->userdata('username')."', date_insert = '".date('Y-m-d H:i:s')."'");
+				return $this->db->query("insert into m_user set username = '".$data_form['username']."', password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."' ");
 		  
 
 		//apabila user id tersedia maka update data
@@ -69,11 +70,11 @@ class User extends Parent_Controller {
 
 			if($data_form['password'] == '' || empty($data_form['password'])){
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."', user_insert = '".$this->session->userdata('username')."', date_insert = '".date('Y-m-d H:i:s')."'  where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."', id_karyawan = '".$data_form['id_karyawan']."' where id = '".$id."' ");
 		 
 			}else{
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."', user_insert = '".$this->session->userdata('username')."', date_insert = '".date('Y-m-d H:i:s')."'  where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."'   where id = '".$id."' ");
 			}
 
 		}
