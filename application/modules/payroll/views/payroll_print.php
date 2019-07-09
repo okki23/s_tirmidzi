@@ -25,22 +25,10 @@
  
 <div class="container">
     <div class="row">
-      
- 
+       
     
 </div>
-
-<h3 align="left"> SLIP GAJI 201801 </h3>  
-<br>
-<h5> Tanggal Generate : <?php echo $info->date_generate; ?>
-<br>
-<h5> Tanggal Cetak : <?php echo date('Y-m-d H:i:s'); ?>
-<br>
-&nbsp;
-<hr>
-<hr>
-<br>
-&nbsp;
+ 
 
 <table border="1" cellpadding="3" cellspacing="0"> 
 
@@ -49,6 +37,25 @@
 
       
       ?>
+      <tr> 
+        <td colspan="3"> <h3 align="center"> SLIP GAJI 201801 </h3>  
+        <p align="center"> CV.Primaguna Hatta Asri  </p>  </td> 
+      </tr>
+      <tr> 
+        <td> Tanggal Generate </td>
+        <td> : </td>
+        <td> <?php echo $info->date_generate; ?> </td>
+      </tr>
+      <tr> 
+        <td> Tanggal Cetak </td>
+        <td> : </td>
+        <td> <?php echo date('Y-m-d H:i:s'); ?> </td>
+      </tr>
+      <tr>
+      <td colspan="3">  
+      <h3 align="center"> Rincian Perhitungan Gaji </h3>
+      </td>
+      </tr>
       <tr> 
         <td> NIP </td>
         <td> : </td>
@@ -100,9 +107,20 @@
         <td> <?php echo  "Rp. ". number_format((($v->gapok) + ($v->tunjangan))); ?></td>
       </tr>
       <tr> 
-        <td> Potongan PPH21 (10%) </td>
+        <td> Potongan PPH21 (3%) </td>
         <td> : </td>
         <td> <?php echo  "Rp. ". number_format( ((($v->gapok) + ($v->tunjangan)) * 3) / 100 ); ?> </td>
+      </tr>
+      <tr> 
+        <td> Gaji Bersih </td>
+        <td> : </td>
+        <td> <?php echo  "Rp. ". number_format( (($v->gapok) + ($v->tunjangan)) - ((($v->gapok) + ($v->tunjangan)) * 3) / 100 ); ?> </td>
+      </tr>
+      <tr>
+      <td colspan="3"> 
+      <b><i>TERBILANG : </i></b>
+      <p> <?php echo ucwords(kekata((($v->gapok) + ($v->tunjangan)) - ((($v->gapok) + ($v->tunjangan)) * 3) / 100)." rupiah"); ?> </p>
+      </td>
       </tr>
       <tr>
         <td colspan="3">
@@ -112,6 +130,35 @@
           &nbsp; <br>
           &nbsp; <br>
 
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+          &nbsp; <br>
+
+         
+           
         </td>
       </tr>
       <?php
