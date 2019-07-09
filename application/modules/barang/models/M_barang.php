@@ -38,47 +38,7 @@ class M_barang extends Parent_Model {
 		    
     }
 
-    public function fetch_jabatan(){
-      
-       $getdata = $this->db->get('m_jabatan')->result();
-       $data = array();  
-      
-           foreach($getdata as $row)  
-           {  
-                $sub_array = array();  
-             
-                $sub_array[] = $row->nama_jabatan;  
-                $sub_array[] = $row->id;  
-                 
-                  
-                $data[] = $sub_array;  
-              
-           }  
-          
-       return $output = array("data"=>$data);
-        
-    } 
-
-    public function fetch_status(){
-      
-     $getdata = $this->db->get('m_status')->result();
-     $data = array();  
-    
-         foreach($getdata as $row)  
-         {  
-              $sub_array = array();  
-           
-              $sub_array[] = $row->nama_status;  
-              $sub_array[] = $row->id;  
-               
-                
-              $data[] = $sub_array;  
-            
-         }  
-        
-     return $output = array("data"=>$data);
-      
-  } 
+   
 	 
  
 }

@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="header">
                             <h2>
-                                Barang
+                                Pricelist
                             </h2>
                             <br>
                             <a href="javascript:void(0);" id="addmodal" class="btn btn-primary waves-effect">  <i class="material-icons">add_circle</i>  Tambah Data </a>
@@ -24,9 +24,9 @@
   
 									<thead>
 										<tr> 
-											<th style="width:5%;">Nama Barang</th>
-                                            <th style="width:5%;">Jenis</th>
-                                            <th style="width:5%;">QTY</th>  
+											<th style="width:5%;">Barang</th>
+                                            <th style="width:5%;">Supplier</th>
+                                            <th style="width:5%;">Harga</th>  
                                             <th style="width:5%;">Opsi</th> 
 										</tr>
 									</thead> 
@@ -55,27 +55,32 @@
                                  
                                     <input type="hidden" name="id" id="id"> 
                                    
-
-									<div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control" placeholder="Nama Barang" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" name="qty" id="qty" class="form-control" placeholder="Qty" />
-                                        </div>
-                                    </div>
-                                    
+ 
                                     <div class="input-group">
                                                 <div class="form-line">
-                                                    <input type="text" name="nama_jenis" id="nama_jenis" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_jenis" id="id_jenis" readonly="readonly" >
+                                                    <input type="text" name="nama_barang" id="nama_barang" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_barang" id="id_barang" readonly="readonly" >
                                                     
                                                 </div>
                                                 <span class="input-group-addon">
-                                                    <button type="button" onclick="CariJenis();" class="btn btn-primary"> Pilih Jenis... </button>
+                                                    <button type="button" onclick="CariBarang();" class="btn btn-primary"> Pilih Barang... </button>
                                                 </span>
+                                    </div>
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_supplier" id="nama_supplier" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_supplier" id="id_supplier" readonly="readonly" >
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariSupplier();" class="btn btn-primary"> Pilih Supplier... </button>
+                                                </span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" name="harga" id="harga" class="form-control" placeholder="Harga" />
+                                        </div>
                                     </div>
 
                                   
@@ -91,12 +96,12 @@
     </div>
 
 
-    <!-- modal cari jenis -->
-    <div class="modal fade" id="CariJenisModal" tabindex="-1" role="dialog">
+    <!-- modal cari barang -->
+    <div class="modal fade" id="CariBarangModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" >Cari Jenis</h4>
+                            <h4 class="modal-title" >Cari Barang</h4>
                         </div>
                         <div class="modal-body">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
@@ -104,14 +109,49 @@
                                 <br>
                                 <hr>
 
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_jenis" >
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_barang" >
   
                                     <thead>
                                         <tr>  
-                                            <th style="width:98%;">Jenis </th> 
+                                            <th style="width:98%;">Barang </th> 
                                          </tr>
                                     </thead> 
-                                    <tbody id="daftar_jenisx">
+                                    <tbody id="daftar_barangx">
+
+                                </tbody>
+                                </table> 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
+
+
+    <!-- modal cari supplier -->
+    <div class="modal fade" id="CariSupplierModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Cari Supplier</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
+
+                                <br>
+                                <hr>
+
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_supplier" >
+  
+                                    <thead>
+                                        <tr>  
+                                            <th style="width:98%;">Supplier </th> 
+                                            <th style="width:98%;">Alamat </th> 
+                                            <th style="width:98%;">Telp </th> 
+                                            <th style="width:98%;">Email </th> 
+                                         </tr>
+ 
+                                    </thead> 
+                                    <tbody id="daftar_supplierx">
 
                                 </tbody>
                                 </table> 
@@ -126,24 +166,43 @@
    <script type="text/javascript"> 
 
      
-    $('#daftar_jenis').DataTable( {
-            "ajax": "<?php echo base_url(); ?>jenis/fetch_jenis"           
+    $('#daftar_barang').DataTable( {
+            "ajax": "<?php echo base_url(); ?>barang/fetch_barang"           
+    });
+
+    $('#daftar_supplier').DataTable( {
+            "ajax": "<?php echo base_url(); ?>supplier/fetch_supplier"           
     });
 
   
-    function CariJenis(){
-        $("#CariJenisModal").modal({backdrop: 'static', keyboard: false,show:true});
+    function CariBarang(){
+        $("#CariBarangModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+
+    function CariSupplier(){
+        $("#CariSupplierModal").modal({backdrop: 'static', keyboard: false,show:true});
     } 
  
-        var daftar_jenis = $('#daftar_jenis').DataTable();
+        var daftar_barang = $('#daftar_barang').DataTable();
      
-        $('#daftar_jenis tbody').on('click', 'tr', function () {
+        $('#daftar_barang tbody').on('click', 'tr', function () {
             
-            var content = daftar_jenis.row(this).data()
+            var content = daftar_barang.row(this).data()
             console.log(content);
-            $("#nama_jenis").val(content[0]);
-            $("#id_jenis").val(content[2]);
-            $("#CariJenisModal").modal('hide');
+            $("#nama_barang").val(content[0]);
+            $("#id_barang").val(content[4]);
+            $("#CariBarangModal").modal('hide');
+        } );
+
+        var daftar_supplier = $('#daftar_supplier').DataTable();
+     
+        $('#daftar_supplier tbody').on('click', 'tr', function () {
+            
+            var content = daftar_supplier.row(this).data()
+            console.log(content);
+            $("#nama_supplier").val(content[0]);
+            $("#id_supplier").val(content[5]);
+            $("#CariSupplierModal").modal('hide');
         } );
  
 	 function Ubah_Data(id){
@@ -151,16 +210,17 @@
 		$("#defaultModal").modal('show');
  
 		$.ajax({
-			 url:"<?php echo base_url(); ?>barang/get_data_edit/"+id,
+			 url:"<?php echo base_url(); ?>pricelist/get_data_edit/"+id,
 			 type:"GET",
 			 dataType:"JSON", 
 			 success:function(result){  
 				 $("#defaultModal").modal('show'); 
 				 $("#id").val(result.id);
+                 $("#harga").val(result.harga);
+                 $("#id_barang").val(result.id_barang); 
                  $("#nama_barang").val(result.nama_barang);
-                 $("#qty").val(result.qty); 
-                 $("#id_jenis").val(result.id_jenis);
-                 $("#nama_jenis").val(result.nama_jenis); 
+                 $("#id_supplier").val(result.id_supplier); 
+                 $("#nama_supplier").val(result.nama_supplier); 
                   
 			 }
 		 });
@@ -176,7 +236,7 @@
         {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo base_url('barang/hapus_data')?>/"+id,
+            url : "<?php echo base_url('pricelist/hapus_data')?>/"+id,
             type: "GET",
             dataType: "JSON",
             success: function(data)
@@ -211,7 +271,7 @@
  
                  //transaksi dibelakang layar
                  $.ajax({
-                 url:"<?php echo base_url(); ?>barang/simpan_data",
+                 url:"<?php echo base_url(); ?>pricelist/simpan_data",
                  type:"POST",
                  data:formData,
                  contentType:false,  
@@ -257,7 +317,7 @@
 		$('#example').append('<caption style="caption-side: top">   </caption>');
 		$('#example').DataTable({
              
-			"ajax": "<?php echo base_url(); ?>barang/fetch_barang",
+			"ajax": "<?php echo base_url(); ?>pricelist/fetch_pricelist",
                 'filterDropDown': {                                       
                         columns: [
                             { 
