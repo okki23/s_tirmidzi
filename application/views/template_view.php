@@ -245,6 +245,31 @@
                     
                         </ul>
                     </li>
+
+
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">dns</i>
+                            <span>Report</span>
+                        </a>
+                        <ul class="ml-menu">
+                 
+                    <li>
+                        <a href="<?php echo base_url('report_po'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>PO</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('report_so'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>SO</span>
+                        </a>
+                    </li> 
+                     
+                    
+                        </ul>
+                    </li>
                      
                     
                 </ul>
