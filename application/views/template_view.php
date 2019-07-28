@@ -212,6 +212,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="<?php echo base_url('produk'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>Produk</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="<?php echo base_url('jenis'); ?>">
                            <i class="material-icons">dns</i>
                             <span>Jenis</span>
@@ -221,6 +227,12 @@
                         <a href="<?php echo base_url('supplier'); ?>">
                            <i class="material-icons">dns</i>
                             <span>Supplier</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('customer'); ?>">
+                           <i class="material-icons">dns</i>
+                            <span>Customer</span>
                         </a>
                     </li>
                     <li>
