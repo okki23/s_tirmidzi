@@ -92,16 +92,7 @@
                                                 </span>
                                     </div>
 
-                                    <div class="input-group">
-                                                <div class="form-line">
-                                                    <input type="text" name="nama_status" id="nama_status" class="form-control" readonly="readonly" >
-                                                    <input type="hidden" name="id_status" id="id_status" readonly="readonly">
-                                                    
-                                                </div>
-                                                <span class="input-group-addon">
-                                                    <button type="button" onclick="CariStatus();" class="btn btn-primary"> Pilih Status... </button>
-                                                </span>
-                                    </div>                              
+                                                         
                                     
  
 
@@ -146,38 +137,7 @@
                 </div>
     </div>
 
-
-    
-    <!-- modal cari status -->
-    <div class="modal fade" id="CariStatusModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" >Cari Status</h4>
-                        </div>
-                        <div class="modal-body">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
-
-                                <br>
-                                <hr>
-
-                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_status" >
-  
-                                    <thead>
-                                        <tr>  
-                                            <th style="width:98%;">Status </th> 
-                                         </tr>
-                                    </thead> 
-                                    <tbody id="daftar_statusx">
-
-                                </tbody>
-                                </table> 
-                       </div>
-                     
-                    </div>
-                </div>
-    </div>
-
+ 
      <!-- modal detail -->
      <div class="modal fade" id="DetailModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
@@ -220,11 +180,7 @@
                                     <td>:</td>
                                     <td><div id="jabatandtl"> </div></td>
                                 </tr>
-                                <tr>
-                                    <td>Status</td>
-                                    <td>:</td>
-                                    <td><div id="statusdtl"> </div></td>
-                                </tr>
+                                
                                 </table>
                                  
                        </div>
@@ -241,11 +197,7 @@
     $('#daftar_jabatan').DataTable( {
             "ajax": "<?php echo base_url(); ?>jabatan/fetch_jabatan"           
     });
-
-     
-    $('#daftar_status').DataTable( {
-            "ajax": "<?php echo base_url(); ?>status/fetch_status"           
-    });
+ 
     function CariJabatan(){
         $("#CariJabatanModal").modal({backdrop: 'static', keyboard: false,show:true});
     } 
@@ -265,8 +217,7 @@
                  $("#alamatdtl").html(result.alamat);
                  $("#telpdtl").html(result.telp);
                  $("#emaildtl").html(result.email);  
-                 $("#jabatandtl").html(result.nama_jabatan); 
-                 $("#statusdtl").html(result.nama_status); 
+                 $("#jabatandtl").html(result.nama_jabatan);  
                   
 			 }
 		 });
@@ -280,28 +231,11 @@
             var content = daftar_jabatan.row(this).data()
             console.log(content);
             $("#nama_jabatan").val(content[0]);
-            $("#id_jabatan").val(content[3]);
+            $("#id_jabatan").val(content[2]);
             $("#CariJabatanModal").modal('hide');
         } );
 
-    function CariStatus(){
-        $("#CariStatusModal").modal({backdrop: 'static', keyboard: false,show:true});
-    } 
    
-        
-        var daftar_status = $('#daftar_status').DataTable();
-     
-        $('#daftar_status tbody').on('click', 'tr', function () {
-            
-            var content = daftar_status.row(this).data()
-            console.log(content);
-            $("#nama_status").val(content[0]);
-            $("#id_status").val(content[3]);
-            $("#CariStatusModal").modal('hide');
-        } );
-
- 
-       
  
        
 	 function Ubah_Data(id){
@@ -323,8 +257,6 @@
                  $("#alamat").val(result.alamat);
                  $("#id_jabatan").val(result.id_jabatan);
                  $("#nama_jabatan").val(result.nama_jabatan);
-                 $("#id_status").val(result.id_status);
-                 $("#nama_status").val(result.nama_status);
                 
               
                   

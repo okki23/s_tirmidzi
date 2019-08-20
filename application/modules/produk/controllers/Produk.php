@@ -3,9 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  
 class Produk extends Parent_Controller {
   
-  var $nama_tabel = 'm_produk';
-  var $daftar_field = array('id','nama_produk','ukuran','satuan','harga');
-  var $primary_key = 'id'; 
+	var $nama_tabel = 'm_produk';
+	var $daftar_field = array('id','nama_produk','id_satuan','harga_satuan','ukuran','id_jenis');
+	var $primary_key = 'id'; 
+   
   
  	public function __construct(){
  		parent::__construct();
@@ -30,13 +31,42 @@ class Produk extends Parent_Controller {
   	public function fetch_produk(){  
        $getdata = $this->m_produk->fetch_produk();
        echo json_encode($getdata);   
-  	}
+	  }
+	  
+	  
+	public function item_list(){  
+       
+		$no_sox =  $this->input->post('no_sox');
+		
+		$getdata = $this->db->query("select a.*,b.nama_jenis,c.nama_satuan from m_produk a
+		left join m_jenis b on b.id = a.id_jenis
+		left join m_satuan c on c.id = a.id_satuan")->result();
+	   
+		  
+		  $dataparse = array();  
+			 foreach ($getdata as $key => $value) {  
+				  $sub_array['nama_produk'] = $value->nama_produk;
+				  $sub_array['nama_jenis'] = $value->nama_jenis;  
+				  $sub_array['ukuran'] = $value->ukuran;
+				  $sub_array['nama_satuan'] = $value->nama_satuan;
+				 
+				  $sub_array['action'] =  "<button typpe='button' onclick='GetItemList(".$value->id.");' class = 'btn btn-primary'> <i class='material-icons'>shopping_cart</i> Pilih </button>";  
+	 
+				 array_push($dataparse,$sub_array); 
+			  }  
+		 
+		  echo json_encode($dataparse);
+   
+	  }
+
 
   	 
 	 
 	public function get_data_edit(){
 		$id = $this->uri->segment(3);
-		$data = $this->db->where('id',$id)->get($this->nama_tabel)->row();
+		$data = $this->db->query("select a.*,b.nama_jenis,c.nama_satuan from m_produk a
+		left join m_jenis b on b.id = a.id_jenis
+		left join m_satuan c on c.id = a.id_satuan where a.id = '".$id."' ")->row(); 
  
 		echo json_encode($data,TRUE);
 	}

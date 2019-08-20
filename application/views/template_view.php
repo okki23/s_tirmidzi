@@ -21,6 +21,11 @@
     <!-- Animation Css -->
     <link href="<?php echo base_url(); ?>assets/plugins/animate-css/animate.css" rel="stylesheet" />
     
+    <!-- Custom Css -->
+    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/css/sweetalert.css" rel="stylesheet">
+
+
     <!-- JQuery DataTable Css -->
     <link href="<?php echo base_url(); ?>assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 
@@ -43,6 +48,7 @@
    
     <!-- Bootstrap Core Js -->
     <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/sweetalert.js"></script>
 
     <!-- Select Plugin Js -->
     <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-select/js/bootstrap-select.js"></script>
@@ -52,6 +58,7 @@
 
     <!-- Waves Effect Plugin Js -->
     <script src="<?php echo base_url(); ?>assets/plugins/node-waves/waves.js"></script>
+
 
     <!-- Jquery DataTable Plugin Js -->
     <script src="<?php echo base_url(); ?>assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -149,114 +156,72 @@
             <div class="menu">
                 
                     <ul class="list">
-                    <li>
-                        <a href="<?php echo base_url('dashboard'); ?>">
-                            <i class="material-icons">home</i>
-                            <span>Home  </span>
-                        </a>
-                    </li> 
-  
-                    <li>
-                        <a href="javascript:void(0);" class="menu-toggle" >
-                            <i class="material-icons">dns</i>
-                            <span>Employee</span>
-                        </a>
-                        <ul class="ml-menu">
-                    
-                    <li>
-                        <a href="<?php echo base_url('karyawan'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Karyawan</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('jabatan'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Jabatan</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('status'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Status</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('payroll'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Payroll</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('user'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>User Account</span>
-                        </a>
-                    </li> 
-                       
-                        </ul>
-                    </li>
+                        <li>
+                            <a href="<?php echo base_url('dashboard'); ?>">
+                                <i class="material-icons">home</i>
+                                <span>Home  </span>
+                            </a>
+                        </li> 
+    
+                        <!-- <li>
+                            <a href="javascript:void(0);" class="menu-toggle" >
+                                <i class="material-icons">dns</i>
+                                <span>Employee</span>
+                            </a>
+                            
+                            <ul class="ml-menu">
+                        
+                                <li>
+                                    <a href="<?php echo base_url('karyawan'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>Karyawan</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="<?php echo base_url('jabatan'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>Jabatan</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="<?php echo base_url('status'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>Status</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="<?php echo base_url('payroll'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>Payroll</span>
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="<?php echo base_url('user'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>User Account</span>
+                                    </a>
+                                </li> 
+                        
+                            </ul>
+                        </li> -->
 
                  
-                      <li>
-                        <a href="javascript:void(0);" class="menu-toggle">
-                            <i class="material-icons">dns</i>
-                            <span>Transaksi</span>
-                        </a>
-                        <ul class="ml-menu">
-                 
-                    <li>
-                        <a href="<?php echo base_url('barang'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Barang</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('produk'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Produk</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('jenis'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Jenis</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('supplier'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('customer'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Customer</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('pricelist'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>Pricelist</span>
-                        </a>
-                    </li> 
-                    <li>
-                        <a href="<?php echo base_url('PO'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>PO</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('SO'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>SO</span>
-                        </a>
-                    </li> 
-                     
-                    
-                        </ul>
-                    </li>
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle">
+                                <i class="material-icons">dns</i>
+                                <span>Transaksi</span>
+                            </a>
+                            <ul class="ml-menu"> 
+                                
+                               
+                                <li>
+                                    <a href="<?php echo base_url('SO'); ?>">
+                                    <i class="material-icons">dns</i>
+                                        <span>SO</span>
+                                    </a>
+                                </li>   
+                            </ul>
+                        </li>
 
 
                     <li>
@@ -265,19 +230,73 @@
                             <span>Report</span>
                         </a>
                         <ul class="ml-menu">
-                 
-                    <li>
-                        <a href="<?php echo base_url('report_po'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>PO</span>
-                        </a>
+                  
+                            <li>
+                                <a href="<?php echo base_url('report_so'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>SO</span>
+                                </a>
+                            </li> 
+                     
+                    
+                        </ul>
                     </li>
+ 
                     <li>
-                        <a href="<?php echo base_url('report_so'); ?>">
-                           <i class="material-icons">dns</i>
-                            <span>SO</span>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">dns</i>
+                            <span>Master</span>
                         </a>
-                    </li> 
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="<?php echo base_url('customer'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Customer</span>
+                                </a>
+                            </li>
+                             <li>
+                                <a href="<?php echo base_url('karyawan'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Karyawan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('jabatan'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Jabatan</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="<?php echo base_url('user'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>User Acoount</span>
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="<?php echo base_url('produk'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Produk</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('jenis'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Jenis</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('material'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Material</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('satuan'); ?>">
+                                <i class="material-icons">dns</i>
+                                    <span>Satuan</span>
+                                </a>
+                            </li>
                      
                     
                         </ul>

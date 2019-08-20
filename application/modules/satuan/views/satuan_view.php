@@ -23,7 +23,7 @@
   
 									<thead>
 										<tr>
-											<th style="width:5%;">No</th>
+											 
                                             
 											<th style="width:10%;">Nama Satuan</th>
 											 

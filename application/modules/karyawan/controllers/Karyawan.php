@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Karyawan extends Parent_Controller {
   
   var $nama_tabel = 'm_karyawan';
-  var $daftar_field = array('id','nip','nama','alamat','telp','email','id_jabatan','id_status');
+  var $daftar_field = array('id','nip','nama','alamat','telp','email','id_jabatan');
   var $primary_key = 'id'; 
   
  	public function __construct(){
@@ -46,9 +46,8 @@ class Karyawan extends Parent_Controller {
 	 
 	public function get_data_edit(){
 		$id = $this->uri->segment(3);
-		$sql = " select a.*,b.nama_jabatan,c.nama_status from m_karyawan a 
-    left join m_jabatan b on b.id = a.id_jabatan
-    left join m_status c on c.id = a.id_status where a.id = '".$id."' ";
+		$sql = " select a.*,b.nama_jabatan  from m_karyawan a 
+    left join m_jabatan b on b.id = a.id_jabatan where a.id = '".$id."' ";
 
 		$get = $this->db->query($sql)->row();
 		echo json_encode($get,TRUE);

@@ -5,7 +5,7 @@ class M_user extends Parent_Model {
  
 
       var $nama_tabel = 'm_user';
-      var $daftar_field = array('id','username','password','id_karyawan');
+      var $daftar_field = array('id','username','password','id_karyawan','level');
       var $primary_key = 'id';
 
 	  
@@ -24,8 +24,9 @@ class M_user extends Parent_Model {
          
                 $sub_array[] = $row->username; 
                 $sub_array[] = $row->nama;  
+                $sub_array[] = level_help($row->level);  
      
-			    $sub_array[] = '<a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a>  &nbsp; <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->id.');" > <i class="material-icons">delete</i> Hapus </a>';  
+		    $sub_array[] = '<a href="javascript:void(0)" class="btn btn-warning btn-xs waves-effect" id="edit" onclick="Ubah_Data('.$row->id.');" > <i class="material-icons">create</i> Ubah </a>  &nbsp; <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->id.');" > <i class="material-icons">delete</i> Hapus </a>';  
                
                 $data[] = $sub_array;  
                  $no++;

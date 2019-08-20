@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends Parent_Controller {
  
   var $nama_tabel = 'm_user';
-  var $daftar_field = array('id','username','password','id_karyawan');
+  var $daftar_field = array('id','username','password','id_karyawan','level');
   var $primary_key = 'id';
   
  	public function __construct(){
@@ -56,13 +56,13 @@ class User extends Parent_Controller {
 	}
  
 	public function simpan_data_user(){
-		$data_form = $this->m_user->array_from_post(array('id','username','password','id_karyawan'));
+		$data_form = $this->m_user->array_from_post(array('id','username','password','id_karyawan','level'));
 		$id = $data_form['id'];	 
 	 
 		//apabila user id kosong maka input data baru
 		if($id == '' || empty($id)){ 
 				 
-				return $this->db->query("insert into m_user set username = '".$data_form['username']."', password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."' ");
+				return $this->db->query("insert into m_user set username = '".$data_form['username']."', password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."', level = '".$data_form['level']."' ");
 		  
 
 		//apabila user id tersedia maka update data
@@ -70,11 +70,11 @@ class User extends Parent_Controller {
 
 			if($data_form['password'] == '' || empty($data_form['password'])){
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."', id_karyawan = '".$data_form['id_karyawan']."' where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."', id_karyawan = '".$data_form['id_karyawan']."' , level = '".$data_form['level']."' where id = '".$id."' ");
 		 
 			}else{
 				 
-				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."'   where id = '".$id."' ");
+				return $this->db->query("update m_user set username = '".$data_form['username']."',password = '".base64_encode($data_form['password'])."', id_karyawan = '".$data_form['id_karyawan']."' ,level = '".$data_form['level']."'  where id = '".$id."' ");
 			}
 
 		}

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_karyawan extends Parent_Model { 
   
      var $nama_tabel = 'm_karyawan';
-     var $daftar_field = array('id','nip','nama','alamat','telp','email','id_jabatan','id_status');
+     var $daftar_field = array('id','nip','nama','alamat','telp','email','id_jabatan');
      var $primary_key = 'id';
   
 	  
@@ -13,9 +13,8 @@ class M_karyawan extends Parent_Model {
         $this->load->database();
   }
   public function fetch_karyawan(){
-       $sql = "select a.*,b.nama_jabatan,c.nama_status from m_karyawan a 
-       left join m_jabatan b on b.id = a.id_jabatan
-       left join m_status c on c.id = a.id_status";
+       $sql = "select a.*,b.nama_jabatan  from m_karyawan a 
+       left join m_jabatan b on b.id = a.id_jabatan";
                
 		   $getdata = $this->db->query($sql)->result();
 		   $data = array();  

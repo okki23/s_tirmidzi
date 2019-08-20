@@ -21,13 +21,16 @@
                                 
                             <div class="table-responsive">
 							   <table class="table table-bordered table-striped table-hover js-basic-example" id="example" >
-                               
+                              
+
+
 									<thead>
 										<tr> 
-											<th style="width:5%;">Nama Produk</th>
+                                            <th style="width:5%;">Nama Produk</th>
+                                            <th style="width:5%;">Jenis</th>  
                                             <th style="width:5%;">Ukuran</th>
                                             <th style="width:5%;">Satuan</th>  
-                                            <th style="width:5%;">Harga</th>     
+                                            <th style="width:5%;">Harga Satuan</th>     
                                             <th style="width:10%;">Opsi</th> 
 										</tr>
 									</thead> 
@@ -54,31 +57,45 @@
                         <div class="modal-body">
                               <form method="post" id="user_form" enctype="multipart/form-data">   
                                  
-                                    <input type="hidden" name="id" id="id"> 
-                                  
-                                  
+                                    <input type="hidden" name="id" id="id">  
 
 									<div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="nama_produk" id="nama_produk" class="form-control" placeholder="Nama Produuk" />
+                                            <input type="text" name="nama_produk" id="nama_produk" class="form-control" placeholder="Nama Produk" />
                                         </div>
                                     </div>
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_jenis" id="nama_jenis" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_jenis" id="id_jenis" readonly="readonly" >
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariJenis();" class="btn btn-primary"> Pilih Jenis... </button>
+                                                </span>
+                                    </div>
+
                                     <div class="form-group">
                                         <div class="form-line">
                                             <input type="text" name="ukuran" id="ukuran" class="form-control" placeholder="Ukuran" />
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Satuan" />
-                                        </div>
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_satuan" id="nama_satuan" class="form-control" readonly="readonly" >
+                                                    <input type="hidden" name="id_satuan" id="id_satuan" readonly="readonly" >
+                                                    
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariSatuan();" class="btn btn-primary"> Pilih Satuan... </button>
+                                                </span>
                                     </div>
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="harga" id="harga" class="form-control" placeholder="Harga" />
+                                            <input type="text" name="harga_satuan" id="harga_satuan" class="form-control" placeholder="Harga Satuan" />
                                         </div>
                                     </div>
-                                    
+                                  
 
 								   <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan</button>
 
@@ -90,12 +107,118 @@
                 </div>
     </div>
 
+    
+
+    <!-- modal cari satuan -->
+    <div class="modal fade" id="CariSatuanModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Cari Satuan</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
+
+                                <br>
+                                <hr>
+
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_satuan" >
+  
+                                    <thead>
+                                        <tr>   
+                                            <th style="width:98%;">Satuan </th> 
+                                         </tr>
+                                    </thead> 
+                                    <tbody id="daftar_satuanx">
+
+                                </tbody>
+                                </table> 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
+
+    
+
+    <!-- modal cari satuan -->
+    <div class="modal fade" id="CariJenisModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" >Cari Jenis</h4>
+                        </div>
+                        <div class="modal-body">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">X Tutup</button>
+
+                                <br>
+                                <hr>
+
+                                 <table width="100%" class="table table-bordered table-striped table-hover " id="daftar_jenis" >
+  
+                                    <thead>
+                                        <tr>   
+                                            <th style="width:98%;">Jenis </th> 
+                                         </tr>
+                                    </thead> 
+                                    <tbody id="daftar_jenisx">
+
+                                </tbody>
+                                </table> 
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
  
  
  
    <script type="text/javascript"> 
   
        
+    $('#daftar_satuan').DataTable( {
+            "ajax": "<?php echo base_url(); ?>satuan/fetch_satuan"           
+    });
+ 
+    function CariSatuan(){
+        $("#CariSatuanModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+
+    var daftar_satuan = $('#daftar_satuan').DataTable();
+     
+     $('#daftar_satuan tbody').on('click', 'tr', function () {
+         
+         var content = daftar_satuan.row(this).data()
+         console.log(content);
+         $("#nama_satuan").val(content[0]);
+         $("#id_satuan").val(content[2]);
+         $("#CariSatuanModal").modal('hide');
+     } );
+
+
+
+       
+    $('#daftar_jenis').DataTable( {
+            "ajax": "<?php echo base_url(); ?>jenis/fetch_jenis"           
+    });
+ 
+    function CariJenis(){
+        $("#CariJenisModal").modal({backdrop: 'static', keyboard: false,show:true});
+    } 
+
+    var daftar_jenis = $('#daftar_jenis').DataTable();
+     
+     $('#daftar_jenis tbody').on('click', 'tr', function () {
+         
+         var content = daftar_jenis.row(this).data()
+         console.log(content);
+         $("#nama_jenis").val(content[0]);
+         $("#id_jenis").val(content[2]);
+         $("#CariJenisModal").modal('hide');
+     } );
+
+
+
 	 function Ubah_Data(id){
 		$("#defaultModalLabel").html("Form Ubah Data");
 		$("#defaultModal").modal('show');
@@ -110,8 +233,12 @@
 				 $("#id").val(result.id);
                  $("#nama_produk").val(result.nama_produk);
                  $("#ukuran").val(result.ukuran);
-                 $("#satuan").val(result.satuan);
-                 $("#harga").val(result.harga); 
+          
+                 $("#harga_satuan").val(result.harga_satuan); 
+                 $("#id_jenis").val(result.id_jenis);
+                 $("#nama_jenis").val(result.nama_jenis);
+                 $("#id_satuan").val(result.id_satuan);
+                 $("#nama_satuan").val(result.nama_satuan);
                   
 			 }
 		 });
@@ -185,9 +312,7 @@
                  }
                 }); 
  
- 
-         
-
+  
 	}
       
 	 

@@ -64,6 +64,32 @@ class Barang extends Parent_Controller {
 		echo json_encode($result,TRUE);
 	}
 	 
+
+ 
+
+	public function item_list(){  
+       
+		$no_sox =  $this->input->post('no_sox');
+		 
+		  $sql = "select a.*,b.nama_jenis from m_barang a
+		  left join m_jenis b on b.id = a.id_jenis";
+		  $exsql = $this->db->query($sql)->result();
+					
+		  $dataparse = array();  
+			 foreach ($exsql as $key => $value) {  
+				  $sub_array['nama_kategori'] = $value->nama_kategori;
+				  $sub_array['nama_sub_kategori'] = $value->nama_sub_kategori;  
+				  $sub_array['nama_barang'] = $value->nama_barang;
+				 
+				  $sub_array['action'] =  "<button typpe='button' onclick='GetItemList(".$value->id.");' class = 'btn btn-primary'> <i class='material-icons'>shopping_cart</i> Pilih </button>";  
+	 
+				 array_push($dataparse,$sub_array); 
+			  }  
+		 
+		  echo json_encode($dataparse);
+   
+	  }
+
 	public function simpan_data(){
     
     

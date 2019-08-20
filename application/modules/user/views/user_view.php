@@ -25,7 +25,8 @@
                                         <tr>
                                            
                                             <th style="width:5%;">Username</th>  
-                                            <th style="width:5%;">Nama Pegawai</th>  
+                                            <th style="width:5%;">Nama Pegawai</th> 
+                                            <th style="width:5%;">Level</th>  
                                             <th style="width:10%;">Opsi</th> 
                                         </tr>
                                     </thead> 
@@ -73,6 +74,20 @@
                                             <span class="label label-danger">* Kosongkan Apabila Tidak Mengganti Password </span>
                                             <input type="password" name="password" id="password" class="form-control" placeholder="Password" /> 
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                    
+                                        <label> User Type  </label>
+                                        <br>
+                                        <input type="hidden" name="level" id="level">
+
+                                        <button type="button" id="adminbtn" class="btn btn-default waves-effect "> Admin </button>
+
+                                        <button type="button" id="salesbtn" class="btn btn-default waves-effect "> Sales </button>
+
+                                        <button type="button" id="ownerbtn" class="btn btn-default waves-effect "> Owner </button>
+                                
                                     </div>
                                  
 
@@ -123,6 +138,28 @@
  
  
    <script type="text/javascript">
+
+   
+    $("#adminbtn").on("click",function(){
+        $("#level").val('1');
+        $(this).attr('class','btn btn-primary');
+        $("#salesbtn").attr('class','btn btn-default');
+        $("#ownerbtn").attr('class','btn btn-default');
+    });
+
+    $("#salesbtn").on("click",function(){
+        $("#level").val('2');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default'); 
+        $("#ownerbtn").attr('class','btn btn-default'); 
+    });
+
+    $("#ownerbtn").on("click",function(){
+        $("#level").val('3');
+        $(this).attr('class','btn btn-primary');
+        $("#adminbtn").attr('class','btn btn-default');
+        $("#salesbtn").attr('class','btn btn-default'); 
+    });
     
     function CariKaryawan(){
         $("#CariKaryawanModal").modal({backdrop: 'static', keyboard: false,show:true});
@@ -156,6 +193,20 @@
                  $("#username").val(result.username); 
                  $("#id_karyawan").val(result.id_karyawan);
                  $("#nama_karyawan").val(result.nama); 
+                 $("#level").val(result.level); 
+                 if(result.level == '1'){
+                    $("#adminbtn").attr('class','btn btn-primary');
+                    $("#salesbtn").attr('class','btn btn-default');
+                    $("#ownerbtn").attr('class','btn btn-default');
+                 }else if(result.level == '2'){
+                    $("#adminbtn").attr('class','btn btn-default');
+                    $("#salesbtn").attr('class','btn btn-primary');
+                    $("#ownerbtn").attr('class','btn btn-default');
+                 }else{
+                    $("#adminbtn").attr('class','btn btn-default');
+                    $("#salesbtn").attr('class','btn btn-default');
+                    $("#ownerbtn").attr('class','btn btn-primary');
+                 }
              }
          });
      }
