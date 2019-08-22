@@ -58,6 +58,7 @@ class So extends Parent_Controller {
       echo $no_so;
  
       $this->db->query("delete from t_so where no_so = '".$no_so."' ");
+      $this->db->query("delete from t_so_detail where no_so = '".$no_so."' ");
 
     }
 
@@ -95,26 +96,27 @@ class So extends Parent_Controller {
 
 
     public function listingdetail(){  
-      //No 	Nama Barang 	Qty 	Source 	Keterangan
+      
       $id =  $this->input->post('id');
        
-      $sql = "select a.*,b.nama_barang, CASE a.source
-      WHEN 'jkt' THEN 'Jakarta'
-      WHEN 'sbg' THEN 'Subang'
-      ELSE NULL
-      END as 'src' from t_pengeluaran_detail a
-      left join m_barang b on b.id = a.id_barang
-                  where a.no_transaksi = '".$id."' ";
+      $sql = "select a.*,c.nama_produk,d.nama_jenis,b.qty,c.ukuran,c.harga_satuan,e.nama_satuan from t_so a
+      left join t_so_detail b on b.no_so = a.no_so
+      left join m_produk c on c.id = b.id_produk
+      left join m_jenis d on d.id = c.id_jenis
+      left join m_satuan e on e.id = c.id_satuan where a.no_so = '".$id."' ";
         $exsql = $this->db->query($sql)->result();
       
           $dataparse = array();  
           $no = 1;
            foreach ($exsql as $key => $value) {  
                 $sub_array['no'] = $no;
-                $sub_array['nama_barang'] = $value->nama_barang;  
-                $sub_array['qty'] = $value->qty;
-                $sub_array['source'] = $value->src;
-                $sub_array['keterangan'] = $value->keterangan; 
+                $sub_array['nama_produk'] = $value->nama_produk;  
+                $sub_array['nama_jenis'] = $value->nama_jenis;
+                $sub_array['ukuran'] = $value->ukuran;
+                $sub_array['nama_satuan'] = $value->nama_satuan; 
+                $sub_array['qty'] = $value->qty; 
+                $sub_array['harga_satuan'] = $value->harga_satuan;
+                $sub_array['total_harga'] = ($value->qty *  $value->harga_satuan);
                array_push($dataparse,$sub_array); 
                $no++;
             }  
@@ -136,6 +138,30 @@ class So extends Parent_Controller {
          $res += $value->total_berat;
        }
        echo $res;
+    }
+
+    public function countpay(){
+      $data = $this->uri->segment(3);
+      //echo $data;
+ 
+      $sql = $this->db->query("select a.*,b.harga_satuan,b.nama_produk,c.nama_jenis,d.nama_satuan,b.harga_satuan,b.ukuran from t_so_detail a
+      left join m_produk b on b.id = a.id_produk 
+      left join m_jenis c on c.id = b.id_jenis
+      left join m_satuan d on d.id = b.id_satuan where a.no_so = '".$data."' ");
+
+      if($sql->num_rows() < 1){
+        $res = 0;
+      }else{
+        $ex = $sql->result();
+        $res = 0;
+
+        foreach($ex as $k=>$y){
+          $res += ($y->harga_satuan * $y->qty);
+        }
+ 
+
+      }
+      echo "Total Belanja : Rp. ".number_format($res);
     }
 
     public function datalist(){
@@ -359,13 +385,10 @@ class So extends Parent_Controller {
   }
 
   public function detailmodal(){
-    $no_transaksi = $this->uri->segment(3);
-     
-    $sql = "select a.*,c.pic,c.nama_instansi,c.alamat,c.telp,d.nama,d.nip,e.nama_kategori_instansi from t_pengeluaran a
-    left join t_pengeluaran_detail b on b.no_transaksi = a.no_transaksi
-    left join m_instansi c on c.id = a.id_instansi
-    left join m_pegawai d on d.id = a.id_pegawai
-    left join m_kategori_instansi e on e.id = c.id_kategori_instansi where a.no_transaksi = '".$no_transaksi."' ";
+    $no_so = $this->uri->segment(3);
+    $sql = "select a.*,b.nama from t_so a
+    left join m_customer b on b.id = a.id_customer where a.no_so = '".$no_so."' ";
+
     $parse = $this->db->query($sql)->row();
     echo json_encode($parse,TRUE);
   }
@@ -457,21 +480,20 @@ class So extends Parent_Controller {
   }
             
   public function simpan_summary(){
-    $no_transaksi = $this->input->post('no_transaksi');
+    $no_so = $this->input->post('no_so');
 
     //$paraminvoice = "INV".date('Ymd');
     //$no_invoice = $this->invoice_id($paraminvoice);
 
     //$kurir = $this->input->post('kurir');
  
-    $id_instansi = $this->input->post('id_instansi');
-    $keterangan = $this->input->post('keterangan');
-    $userid = $this->session->userdata('userid');
- 
+    $id_customer = $this->input->post('id_customer');
+    $date_assign = date('Y-m-d');
+    $status = 1;
     
-    $store = array("id_instansi"=>$id_instansi,"keterangan"=>$keterangan,"id_pegawai"=>$userid,"date_assign"=>date('Y-m-d'));
-    $this->db->where('no_transaksi', $no_transaksi);
-    $this->db->update('t_pengeluaran', $store);
+    $store = array("id_customer"=>$id_customer,"date_assign"=>$date_assign,"status"=>$status);
+    $this->db->where('no_so', $no_so);
+    $this->db->update('t_so', $store);
    
 
 

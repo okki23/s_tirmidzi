@@ -11,7 +11,7 @@
  Target Server Version : 100316
  File Encoding         : 65001
 
- Date: 20/08/2019 23:35:35
+ Date: 22/08/2019 09:37:14
 */
 
 SET NAMES utf8mb4;
@@ -51,12 +51,13 @@ CREATE TABLE `m_customer`  (
   `telp` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `email` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of m_customer
 -- ----------------------------
 INSERT INTO `m_customer` VALUES (1, '238Y4234', 'Joni Iskandar', 'Jl.Nangka', '0218493538', 'joni_iskandar@gmail.com');
+INSERT INTO `m_customer` VALUES (2, '89234AA', 'Ariel ONAH', 'Jl.Bina Marga', '0213748543', 'noah@mail.com');
 
 -- ----------------------------
 -- Table structure for m_jabatan
@@ -213,7 +214,13 @@ CREATE TABLE `t_so`  (
   `status` int(10) NULL DEFAULT NULL COMMENT '1 create\r\n2 approve\r\n3 reject\r\n4 pending\r\n5 process\r\n6 finishing \r\n7 package',
   `date_assign` date NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 71 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_so
+-- ----------------------------
+INSERT INTO `t_so` VALUES (69, 1, '201908210000001', NULL, NULL, 1, '2019-08-21');
+INSERT INTO `t_so` VALUES (70, 2, '201908210000002', NULL, NULL, 1, '2019-08-21');
 
 -- ----------------------------
 -- Table structure for t_so_detail
@@ -225,11 +232,14 @@ CREATE TABLE `t_so_detail`  (
   `id_produk` int(10) NULL DEFAULT NULL,
   `qty` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_so_detail
 -- ----------------------------
-INSERT INTO `t_so_detail` VALUES (3, '201908200000001', 6, 5);
+INSERT INTO `t_so_detail` VALUES (34, '201908210000001', 6, 6);
+INSERT INTO `t_so_detail` VALUES (35, '201908210000001', 4, 7);
+INSERT INTO `t_so_detail` VALUES (36, '201908210000002', 6, 8);
+INSERT INTO `t_so_detail` VALUES (37, '201908210000002', 4, 8);
 
 SET FOREIGN_KEY_CHECKS = 1;

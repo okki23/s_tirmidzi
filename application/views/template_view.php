@@ -215,7 +215,7 @@
                                 
                                
                                 <li>
-                                    <a href="<?php echo base_url('SO'); ?>">
+                                    <a href="<?php echo base_url('so'); ?>">
                                     <i class="material-icons">dns</i>
                                         <span>SO</span>
                                     </a>

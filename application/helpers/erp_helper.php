@@ -13,6 +13,29 @@ if(!function_exists('level_help')){
 		return $res;
     }
 }
+ 
+if(!function_exists('status_help')){
+	function status_help($params){
+        $res = '';
+		if($params == 1){
+			$res = 'Create';
+		}else if($params == 2){
+			$res = 'Approve';
+        }else if($params == 3){
+            $res = 'Reject';
+        }else if($params == 4){
+            $res = 'Pending';
+        }else if($params == 5){
+            $res = 'Process';
+        }else if($params == 6){
+            $res = 'Finishing';
+        }else if($params == 7){
+            $res = 'Package';
+        }
+
+		return $res;
+    }
+}
 if(!function_exists('bagi_nama_div')){
     function bagi_nama_div($string){
     $total = str_word_count($string);

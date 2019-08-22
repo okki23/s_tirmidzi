@@ -78,8 +78,15 @@ class M_so extends Parent_Model {
                 $sub_array[] = $row->no_so;
                 $sub_array[] = $row->nama;
                 $sub_array[] = $row->date_assign; 
-                $sub_array[] = '<a href="javascript:void(0)" class="btn btn-default btn-xs waves-effect" id="edit" onclick="Show_Detail('.$row->no_so.');" > <i class="material-icons">aspect_ratio</i> Detail </a>  &nbsp; 
-                <a href="javascript:void(0)" id="delete" class="btn btn-danger btn-xs waves-effect" onclick="Hapus_Data('.$row->no_so.');" > <i class="material-icons">delete</i> Hapus </a>';  
+                $sub_array[] = '<div class="dropdown">
+                                   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Opsi
+                                   <span class="caret"></span></button>
+                                   <ul class="dropdown-menu">
+                                        <li><a href="javascript:void(0)" onclick="Input_Material('.$row->no_so.');" > <i class="material-icons">aspect_ratio</i> Input Material</a></li>                       
+                                        <li><a href="javascript:void(0)" onclick="Show_Detail('.$row->no_so.');" > <i class="material-icons">aspect_ratio</i> Detail</a></li>                  
+                                        <li><a href="javascript:void(0)" onclick="Hapus_Data('.$row->no_so.');" > <i class="material-icons">delete</i> Delete</a></li>
+                                   </ul>
+                              </div>';  
                 $data[] = $sub_array;  
               
           $no++;

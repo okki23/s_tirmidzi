@@ -22,10 +22,10 @@
                                <table class="table table-bordered table-striped table-hover js-basic-example" id="example" > 
                                     <thead>
                                         <tr>
-                                            <th style="width:1%;">No SO</th>  
-                                            <th style="width:2%;">Customer</th> 
+                                            <th style="width:5%;">No SO</th>  
+                                            <th style="width:5%;">Customer</th> 
                                             <th style="width:5%;">Tanggal Terbit</th> 
-                                            <th style="width:10%;">Opsi</th> 
+                                            <th style="width:5%;">Opsi</th> 
                                         </tr>
                                     </thead> 
                                 </table> 
@@ -63,7 +63,7 @@
                                     <div class="input-group">
                                                 <div class="form-line">
                                                     <input type="text" name="nama_customer" id="nama_customer" class="form-control" required readonly="readonly" >
-                                                    <input type="text" name="id_customer" id="id_customer" required>
+                                                    <input type="hidden" name="id_customer" id="id_customer" required>
                                                 </div>
                                                 <span class="input-group-addon">
                                                     <button type="button" onclick="CariCustomer();" class="btn btn-primary"> Pilih Customer.. </button>
@@ -91,6 +91,8 @@
                                             </tr>
                                         </thead> 
                                         </table>
+
+                                        <div id="teser" style="float:right; margin-right:10px; font-weight:bold;font-size:20px;"> 0 </div>
  
                                   
                                   <br>
@@ -123,8 +125,8 @@
                         <div class="modal-body">
                               <form method="post" id="user_form_detail" enctype="multipart/form-data">   
                                  
-                                    <input type="text" name="id" id="id"> 
-                                    <input type="text" name="no_sox" id="no_sox">  
+                                    <input type="hidden" name="id" id="id"> 
+                                    <input type="hidden" name="no_sox" id="no_sox">  
 
                                     <div class="input-group">
                                                 <div class="form-line">
@@ -242,7 +244,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Detail Pengeluaran</h4>
+                            <h4 class="modal-title">Detail SO</h4>
                         </div>
                         <div class="modal-body">
 
@@ -252,45 +254,26 @@
 
                             <table class="table table-responsive">
                             <tr>
-                                <td style="font-weight:bold;"> No Transaksi</td>
+                                <td style="font-weight:bold;"> No SO</td>
                                 <td> : </td>
-                                <td> <p id="notrdtl"> </p> </td>
+                                <td> <p id="nosodtl"> </p> </td>
                                 
-                                <td style="font-weight:bold;"> Instansi</td>
+                                <td style="font-weight:bold;"> Customer</td>
                                 <td> : </td>
-                                <td> <p id="instansidtl"> </p> </td> 
+                                <td> <p id="custdtl"> </p> </td> 
                             </tr>
                             
                             <tr>
-                                <td style="font-weight:bold;"> Nama PIC Instansi</td>
+                                <td style="font-weight:bold;"> Date Assign</td>
                                 <td> : </td>
-                                <td> <p id="picdtl"> </p> </td>
+                                <td> <p id="dateassign"> </p> </td>
                                 
-                                <td style="font-weight:bold;"> Kategori Instansi</td>
+                                <td style="font-weight:bold;"> Status</td>
                                 <td> : </td>
-                                <td> <p id="katinsdtl"> </p> </td> 
+                                <td> <p id="statusdtl"> </p> </td> 
                             </tr>
 
-                            
-                            <tr>
-                                <td style="font-weight:bold;"> Keterangan  </td> 
-                                <td> : </td>
-                                <td> <p id="ketdtl"> </p> </td>
-                                <td style="font-weight:bold;"> Tanggal Keluar</td>
-                                <td> : </td>
-                                <td> <p id="tglkeluardtl"> </p> </td>
-                            </tr> 
-                            <tr>
-                                <td colspan="6"> Penanggung Jawab </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight:bold;"> Nama  </td> 
-                                <td> : </td>
-                                <td> <p id="namapjdtl"> </p> </td>
-                                <td style="font-weight:bold;"> NIP</td>
-                                <td> : </td>
-                                <td> <p id="nippjdtl"> </p> </td>
-                            </tr> 
+                             
                             </table> 
 
                             <br>
@@ -306,7 +289,7 @@
                                                 <th style="width:2%;">Qty</th>  
                                                 <th style="width:2%;">Harga Satuan</th> 
                                                 <th style="width:2%;">Total Harga</th>  
-                                                <th style="width:5%;">Opsi Harga</th>  
+                                           
                                             </tr>
                                     </thead>
                                     <tbody>
@@ -314,6 +297,12 @@
                                     
                                         
                                     </tbody>  
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="7" style="text-align:right">Total:</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
                             </table>  
 
                         </div>
@@ -331,6 +320,83 @@
                 </div>
     </div>
             
+
+
+    
+   
+    <!-- form material -->
+    <div class="modal fade" id="MaterialModal" role="dialog" data-keyboard="false" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="defaultModalLabel">Form Input Material Data</h4>
+                        </div>
+                        <div class="modal-body">
+                              <form method="post" id="user_form" enctype="multipart/form-data">   
+                                 
+                                    <input type="hidden" name="id" id="id">  
+
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label> No Transaksi </label>
+                                            <input type="text" name="no_so" id="no_so" class="form-control" placeholder="No Transaksi" readonly="readonly" />
+                                        </div>
+                                    </div> 
+                                    
+                                    <div class="input-group">
+                                                <div class="form-line">
+                                                    <input type="text" name="nama_customer" id="nama_customer" class="form-control" required readonly="readonly" >
+                                                    <input type="hidden" name="id_customer" id="id_customer" required>
+                                                </div>
+                                                <span class="input-group-addon">
+                                                    <button type="button" onclick="CariCustomer();" class="btn btn-primary"> Pilih Customer.. </button>
+                                                </span>
+                                    </div> 
+
+                                    <br>
+                                     
+                                     <button type="button" class="btn btn-primary waves-effect" onclick="TambahDataChild();"> <i class="material-icons">add_circle</i>  Tambah Data</button>
+ 
+                                        <br>
+                                        &nbsp;
+                                        <table class="table table-bordered table-striped table-hover js-basic-example" id="datalist"> 
+  
+                                        <thead>
+                                            <tr>
+                                                <th style="width:1%;">No</th>  
+                                                <th style="width:2%;">Nama Produk</th>
+                                                <th style="width:2%;">Jenis</th>
+                                                <th style="width:2%;">Ukuran</th>
+                                                <th style="width:2%;">Satuan</th>
+                                                <th style="width:2%;">Qty</th>  
+                                                <th style="width:5%;">Harga Satuan</th> 
+                                                <th style="width:5%;">Total Harga</th>  
+                                            </tr>
+                                        </thead> 
+                                        </table>
+
+                                        <div id="teser" style="float:right; margin-right:10px; font-weight:bold;font-size:20px;"> 0 </div>
+ 
+                                  
+                                  <br>
+                                   
+                                   
+
+                                  <button type="button" onclick="Simpan_Data();" class="btn btn-success waves-effect"> <i class="material-icons">save</i> Simpan </button>
+
+                                    <button type="button" name="cancel" id="cancel" class="btn btn-danger waves-effect" onclick="javascript:Bersihkan_Form_Order();" > <i class="material-icons">clear</i> Batal</button>
+                        </div>
+                                 
+                        </div>
+
+                                   
+                             </form>
+                       </div>
+                     
+                    </div>
+                </div>
+    </div>
+  
     
        
    <script type="text/javascript">
@@ -406,20 +472,7 @@
     }
 
     
-    $("#jktbtn").on("click",function(){
-        $("#source").val('jkt');
-        $(this).attr('class','btn btn-primary');
-        $("#sbgbtn").attr('class','btn btn-default');
-
-    });
-
-    $("#sbgbtn").on("click",function(){
-        $("#source").val('sbg');
-        $(this).attr('class','btn btn-primary');
-        $("#jktbtn").attr('class','btn btn-default');
-
-         
-    });
+     
 
     function Pilihproduk(){
         $("#PilihprodukModal").modal({backdrop: 'static', keyboard: false,show:true});
@@ -471,9 +524,22 @@
         });
 
     }
+    function addCommas(nStr)
+    {
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
 
    
 	 function Show_Detail(id){ 
+         /*No	Nama Produk	Jenis	Ukuran	Satuan	Qty	Harga Satuan	Total Harga	Opsi Harga */
 		$("#DetailModal").modal({backdrop: 'static', keyboard: false,show:true});
 
         $('#tabeldetail').DataTable({
@@ -485,22 +551,23 @@
                 dataSrc : '',
 
             },
-            // No 	Nama produk 	Qty 	Source 	Keterangan
-            // $sub_array['no'] = $no;
-            //     $sub_array['nama_produk'] = $value->nama_produk;  
-            //     $sub_array['qty'] = $value->qty;
-            //     $sub_array['source'] = $value->src;
-            //     $sub_array['keterangan'] = $value->keterangan; 
+           
             "columns" : [ {
                 "data" : "no"
             },{
                 "data" : "nama_produk"
             },{
+                "data" : "nama_jenis"
+            },{
+                "data" : "ukuran"
+            },{
+                "data" : "nama_satuan"
+            },{
                 "data" : "qty"
             },{
-                "data" : "source"
+                "data" : "harga_satuan"
             },{
-                "data" : "keterangan"
+                "data" : "total_harga"
             }],
 
             "rowReorder": {
@@ -508,6 +575,39 @@
             },
 
             "destroy":true,
+
+            "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 7 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 7, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 7 ).footer() ).html(
+                'Rp. '+addCommas(pageTotal)
+            );
+        }
         });
     
 
@@ -516,54 +616,28 @@
 			 type:"GET",
 			 dataType:"JSON", 
 			 success:function(result){  
-
-                // {"id":"153","no_so":"201907290000001","id_instansi":"2","keterangan":"Sudah OK","id_pegawai":"1","date_assign":"2019-07-29","pic":"Putra","nama_instansi":"PT.Pindad","alamat":"Jl.Nangka","telp":"021345446","nama":"Admin","nip":"9999999","nama_kategori_instansi":"Pemerintahan"}
-                // <tr>
-				// 				<td style="font-weight:bold;"> No Transaksi</td>
-				// 				<td> : </td>
-				// 				<td> <p id="notrdtl"> </p> </td>
-								
-				// 				<td style="font-weight:bold;"> Instansi</td>
-				// 				<td> : </td>
-				// 				<td> <p id="instansidtl"> </p> </td> 
-				// 			</tr>
-							 
-				// 			<tr>
-				// 				<td style="font-weight:bold;"> Nama PIC Instansi</td>
-				// 				<td> : </td>
-				// 				<td> <p id="picdtl"> </p> </td>
-								
-				// 				<td style="font-weight:bold;"> Tanggal Keluar</td>
-				// 				<td> : </td>
-				// 				<td> <p id="tglkeluardtl"> </p> </td> 
-                //             </tr>
-                //             <tr>
-				// 				<td style="font-weight:bold;"> Nama Penanggung Jawab </td>
-				// 				<td> : </td>
-				// 				<td> <p id="namapjdtl"> </p> </td>
-								
-				// 				<td style="font-weight:bold;"> NIP Penanggung Jawab</td>
-				// 				<td> : </td>
-				// 				<td> <p id="nippjdtl"> </p> </td> 
-                //             </tr>
-                   
-							 
-				// 			<tr>
-				// 				<td style="font-weight:bold;"> Keterangan  </td> 
-                //                 <td> : </td>
-                //                 <td> <p id="ketdtl"> </p> </td>
-                //                 <td coslpan="3"> </td>
-				// 			</tr> 
-              
-                 $("#notrdtl").html(result.no_so);
-                 $("#nama_jabatandtl").html(result.nama_jabatan);
-                 $("#instansidtl").html(result.nama_instansi); 
-                 $("#picdtl").html(result.pic); 
-                 $("#tglkeluardtl").html(result.date_assign); 
-                 $("#namapjdtl").html(result.nama); 
-                 $("#nippjdtl").html(result.nip);
-                 $("#ketdtl").html(result.keterangan); 
-                 $("#katinsdtl").html(result.nama_kategori_instansi); 
+ 
+                 $("#nosodtl").html(result.no_so);
+                 $("#custdtl").html(result.nama);
+                 $("#dateassign").html(result.date_assign); 
+                 
+                 if(result.status == 1){
+                    $("#statusdtl").html('Create'); 
+                 }else if(result.status == 2){
+                    $("#statusdtl").html('Approve'); 
+                 }else if(result.status == 3){
+                    $("#statusdtl").html('Reject'); 
+                 }else if(result.status == 4){
+                    $("#statusdtl").html('Pending'); 
+                 }else if(result.status == 5){
+                    $("#statusdtl").html('Process'); 
+                 }else if(result.status == 6){
+                    $("#statusdtl").html('Finishing'); 
+                 }else if(result.status == 7){
+                    $("#statusdtl").html('Package'); 
+                 }
+                
+                 
 			 	   
 			 }
 		 });
@@ -600,6 +674,10 @@
       $.get("<?php echo base_url('so/datalist/'); ?>"+no_sox, function(data) {
           $("#datalist").html(data);
       });
+
+      $.get("<?php echo base_url('so/countpay/');?>"+no_sox,function(res){
+        $("#teser").html(res);
+      });
     }
     function CalcWeight(no_sox){
       $.get("<?php echo base_url('so/calc_weight/'); ?>"+no_sox, function(data) {
@@ -634,7 +712,7 @@
           $("#defaultModal").modal({backdrop: 'static', keyboard: false,show:true});
           $("#defaultModalLabel").html("Form Tambah Data");
             var no_so = $("#no_so").val();
-         
+            $("#teser").html('Total Belanja : Rp. 0');
         
           $.ajax({
           url:"<?php echo base_url('so/get_last_id'); ?>",
@@ -896,7 +974,10 @@
                  $("#defaultModalChild").modal('hide');
                  //$("#example_list").DataTable.reload();
                  $('#user_form_detail')[0].reset();
-                 
+                 //$('#teser').html('0');
+                 $.get("<?php echo base_url('so/countpay/');?>"+no_sox,function(res){
+                   console.log(res);
+                });
                  //ReloadListTableDetail(no_sox);
                  $.notify("Data berhasil disimpan!", {
                     animate: {
